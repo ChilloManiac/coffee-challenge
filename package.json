@@ -1,0 +1,19 @@
+{
+  "name": "coffee-date-challenge",
+  "version": "1.0.0",
+  "description": "This is a coding challenge, created from our idea of having biweekly coffee dates with our team members. In order to ensure that we all get to meet with each other, and that the \"dates\" are distributed uniformly, i created this coding challenge. Ideally it is a fun fabulab challenge.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --show-seed"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@fast-check/jest": "^2.1.0",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.13",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.0"
+  }
+}
