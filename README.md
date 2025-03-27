@@ -1,6 +1,6 @@
 # Coffee date challenge
 
-This is a coding challenge, created from our idea of having biweekly coffee dates with our team members. In order to ensure that we all get to meet with each other, and that the "dates" are distributed uniformly, i created this coding challenge. Ideally it is a fun fabulab challenge.
+This is a coding challenge, created from an idea of having biweekly coffee dates with team members. In order to ensure that all get to meet with each other, and that the "dates" are distributed uniformly, i created this coding challenge.
 
 ## Summary
 
@@ -38,7 +38,7 @@ Where `n` is the amount of participants.
 ### Acceptance criteria
 
 - The solution must use the shortest amount of weeks possible.
-- The solution must be able to handle at least 10 participants
+- The solution must be able to handle at least 20 participants
 - The solution must be able to handle an odd number of participants.
 - The solution must use all unique coffee dates
 - The solution must never use the same date twice

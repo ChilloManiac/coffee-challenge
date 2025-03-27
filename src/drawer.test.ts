@@ -1,25 +1,28 @@
 import { it, fc } from "@fast-check/jest";
-import { Participant } from ".";
+import { CoffeeDate, Participant } from ".";
 import { Drawer } from "./drawer";
 
 const participantGenerator = fc.uniqueArray(
 	fc.string({ minLength: 1, unit: "grapheme" }),
 	{
-		maxLength: 10,
+		maxLength: 20,
 	},
 );
 
-const allDatesPossibleSorted = (participants: Participant[]) => {
-	const dates = [];
+const allDatesPossible = (participants: Participant[]): CoffeeDate[] => {
+	const dates: CoffeeDate[] = [];
 	for (let i = 0; i < participants.length; i++) {
 		for (let j = i + 1; j < participants.length; j++) {
-			const date = [participants[i], participants[j]];
-			date.sort();
 			dates.push([participants[i], participants[j]]);
 		}
 	}
 
 	return dates;
+};
+
+const serializeDate = (date: CoffeeDate) => {
+	const copy = structuredClone(date);
+	return JSON.stringify(copy.sort());
 };
 
 describe("Drawer", () => {
@@ -54,8 +57,8 @@ describe("Drawer", () => {
 			const amountCoffeeDates =
 				(amountParticipants * (amountParticipants - 1)) / 2;
 
-			const coffeeDates = [];
-			let drawnCoffeeDates;
+			const coffeeDates: CoffeeDate[] = [];
+			let drawnCoffeeDates: CoffeeDate[];
 			do {
 				drawnCoffeeDates = drawer.draw_week();
 				coffeeDates.push(...drawnCoffeeDates);
@@ -63,8 +66,10 @@ describe("Drawer", () => {
 
 			expect(coffeeDates).toHaveLength(amountCoffeeDates);
 
-			const drawnSortedSet = new Set(coffeeDates.map((date) => date.sort()));
-			const expectedSortedSet = new Set(allDatesPossibleSorted(participants));
+			const drawnSortedSet = new Set(coffeeDates.map(serializeDate));
+			const expectedSortedSet = new Set(
+				allDatesPossible(participants).map(serializeDate),
+			);
 
 			expect(drawnSortedSet).toEqual(expectedSortedSet);
 		},
@@ -75,14 +80,14 @@ describe("Drawer", () => {
 		(participants: Participant[]) => {
 			const drawer = new Drawer(participants);
 
-			const coffeeDates = [];
-			let drawnCoffeeDates;
+			const coffeeDates: CoffeeDate[] = [];
+			let drawnCoffeeDates: CoffeeDate[];
 			do {
 				drawnCoffeeDates = drawer.draw_week();
 				coffeeDates.push(...drawnCoffeeDates);
 			} while (drawnCoffeeDates.length > 0);
 
-			const drawnSortedSet = new Set(coffeeDates.map((date) => date.sort()));
+			const drawnSortedSet = new Set(coffeeDates.map(serializeDate));
 			expect(drawnSortedSet.size).toEqual(coffeeDates.length);
 		},
 	);
@@ -92,7 +97,7 @@ describe("Drawer", () => {
 		(participants: Participant[]) => {
 			const drawer = new Drawer(participants);
 
-			let drawnCoffeeDates;
+			let drawnCoffeeDates: CoffeeDate[];
 			do {
 				drawnCoffeeDates = drawer.draw_week();
 				const participantsInWeek = drawnCoffeeDates.flat();

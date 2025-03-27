@@ -4,6 +4,9 @@
     "module": "nodenext", /* Specify what module code is generated. */
     "moduleResolution": "nodenext",
     "isolatedModules": true,
+    "lib": [
+      "esnext"
+    ],
     "rootDir": "src",
     "outDir": "dist",
     "inlineSourceMap": true,
